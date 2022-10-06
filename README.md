@@ -40,4 +40,6 @@ def post(data, token_payload):
 
 `syapse-flask-jwt-consumer`, unlike the original project, is able to support both header-auth and cookie-auth in a single application. We do this by first checking a request for an authorization jwt token in the request cookie, and using the token if found in the cook. If we do not find a request auth-cookie, we checker the request headers for an authorization token, again using this for the auth token. If neither cookie nor header are found, we surface an error.
 
+Note that to use cookie-auth, the server using this package will need to configure the environment variable `JWT_COOKIE_NAME`. E.g `JWT_COOKIE_NAME=authorization` in order to read the correct token. While most of our flask apps configure this variable by default, always double-check to make sure it's configured as expected.
+
 This feature is used in `minerva-serice`, where the MTB/Patient-Finder API uses header-auth to support internal, server-server requests, while the Provenance API uses cookie-auth to facilitate external client-server requests.
