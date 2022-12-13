@@ -12,6 +12,17 @@ def requires_jwt(f, **kwparams):
     """Determines if the Access Token is valid."""
     @wraps(f)
     def decorated(*args, **kwargs):
+
+        #
+        # NOTE(ian): if the user is in debug-mode, we don't do any validation.
+        # This is a bit ugly, so we may wish to refactor at some point...
+        #
+        if config.jwt_debug_enabled:
+            more = {}
+            if kwparams.get('pass_token_payload', False):
+                more.update({'token_payload': payload})
+            return f(*args, **kwargs, **more)
+
         token = get_jwt_raw()
         key = _brute_force_key(token)
         if key:
