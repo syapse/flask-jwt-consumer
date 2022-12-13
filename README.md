@@ -21,6 +21,8 @@ Inspired by [Flask JWT Simple](https://github.com/vimalloc/flask-jwt-simple), ni
 - `JWT_IDENTITY` optional, if provided JWT will use it.
 - `JWT_AUTHORIZED_KEYS` new line separated list of OpenSSH formatted keys.
 - `VERIFY_AUD` disable verification of `aud` during JWT decoding.
+- `JWT_DEBUG` an optional boolean parameter which allows the application to not need the `JWT_AUTHORIZED_KEYS` config. This is convenient during local development, since it allows testing endpoints without excessive configuration.
+
 
 ### Decorators
 
