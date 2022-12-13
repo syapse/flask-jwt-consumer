@@ -55,7 +55,9 @@ class _Config(object):
     @property
     def _public_keys(self):
         keys = current_app.config['JWT_AUTHORIZED_KEYS']
-        if not keys:
+        jwt_debug = current_app.config.get("JWT_DEBUG", False)  # The application must explicitly configure this to be True.
+
+        if not keys and not jwt_debug:
             raise RuntimeError('JWT_AUTHORIZED_KEYS must be set to use '
                                'asymmetric cryptography algorithm '
                                '"{}"'.format(self.algorithm))
