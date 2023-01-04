@@ -3,10 +3,35 @@
 repos:
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v4.4.0
-  hooks: []
+  hooks:
+  - id: check-added-large-files
+  - id: check-case-conflict
+  - id: check-docstring-first
+  - id: check-executables-have-shebangs
+  - id: check-json
+  - id: check-merge-conflict
+  - id: check-symlinks
+  - id: check-toml
+  - id: check-vcs-permalinks
+  - id: check-xml
+  - id: check-yaml
+  - id: detect-aws-credentials
+    args:
+    - --allow-missing-credentials       # allow hook to pass when no creds file is available
+  - id: end-of-file-fixer
+  - id: file-contents-sorter
+  - id: fix-byte-order-marker
+  - id: forbid-new-submodules
+  - id: mixed-line-ending
+  - id: no-commit-to-branch
+  - id: pretty-format-json
+    args:
+    - --autofix
+  - id: sort-simple-yaml
+  - id: trailing-whitespace
 - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
   rev: v2.5.0
   hooks:
-    - id: pretty-format-yaml
-      args:
-        - --autofix
+  - id: pretty-format-yaml
+    args:
+    - --autofix
