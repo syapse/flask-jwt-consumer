@@ -25,6 +25,7 @@ repos:
   - id: mixed-line-ending
   - id: no-commit-to-branch
   - id: pretty-format-json
+    exclude: Pipfile.lock
     args:
     - --autofix
   - id: sort-simple-yaml
@@ -33,6 +34,5 @@ repos:
   rev: v2.5.0
   hooks:
   - id: pretty-format-yaml
-    exclude: Pipfile.lock
     args:
     - --autofix
