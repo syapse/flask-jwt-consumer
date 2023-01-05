@@ -5,6 +5,8 @@ repos:
   rev: v4.4.0
   hooks:
   - id: check-added-large-files
+  - id: check-ast
+  - id: check-builtin-literals
   - id: check-case-conflict
   - id: check-docstring-first
   - id: check-executables-have-shebangs
@@ -15,6 +17,7 @@ repos:
   - id: check-vcs-permalinks
   - id: check-xml
   - id: check-yaml
+  - id: debug-statements
   - id: detect-aws-credentials
     args:
     - --allow-missing-credentials       # allow hook to pass when no creds file is available
@@ -28,6 +31,7 @@ repos:
     exclude: Pipfile.lock
     args:
     - --autofix
+  - id: requirements-txt-fixer
   - id: sort-simple-yaml
   - id: trailing-whitespace
 - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
