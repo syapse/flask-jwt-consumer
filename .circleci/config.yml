@@ -5,56 +5,56 @@ orbs:
 
 defaults: &defaults
   docker:
-    - image: cimg/python:3.10.7
+  - image: cimg/python:3.10.7
   working_directory: ~/syapse-flask-jwt-consumer
 
 jobs:
   test:
     <<: *defaults
     steps:
-      - checkout
-      - restore_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
-      - run:
-          name: Install test dependencies
-          command: pipenv install --dev --skip-lock
-      - save_cache:
-          paths:
-            - ./venv
-          key: deps1-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
-      - run:
-          name: Run tests
-          command: pipenv run pytest tests --verbose
-      - persist_to_workspace:
-          root: ~/syapse-flask-jwt-consumer
-          paths:
-            - ./
+    - checkout
+    - restore_cache:
+        key: deps1-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+    - run:
+        name: Install test dependencies
+        command: pipenv install --dev --skip-lock
+    - save_cache:
+        paths:
+        - ./venv
+        key: deps1-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+    - run:
+        name: Run tests
+        command: pipenv run pytest tests --verbose
+    - persist_to_workspace:
+        root: ~/syapse-flask-jwt-consumer
+        paths:
+        - ./
 
 workflows:
   main:
     jobs:
-      - test
-      - common/pybuild:
-          filters:
-            tags:
-              only: /.*/
-      - common/release:
-          context:
-            - PACKAGECLOUD
-            - aws-ecr-prod
-          requires:
-            - common/pybuild
-          filters:
-            tags:
-              only: /.*/
-            branches:
-              ignore: /.*/
-      - common/release-notes:
-          context: aws-ecr-prod
-          requires:
-            - common/release
-          filters:
-            tags:
-              only: /.*/
-            branches:
-              ignore: /.*/
+    - test
+    - common/pybuild:
+        filters:
+          tags:
+            only: /.*/
+    - common/release:
+        context:
+        - PACKAGECLOUD
+        - aws-ecr-prod
+        requires:
+        - common/pybuild
+        filters:
+          tags:
+            only: /.*/
+          branches:
+            ignore: /.*/
+    - common/release-notes:
+        context: aws-ecr-prod
+        requires:
+        - common/release
+        filters:
+          tags:
+            only: /.*/
+          branches:
+            ignore: /.*/

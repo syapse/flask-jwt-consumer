@@ -128,7 +128,7 @@ class TestExtensionJWTConsumer:
                 protected = requires_jwt(identity)
                 with pytest.raises(AuthError) as err:
                     protected('De nada')
-                
+
                 assert err.value.code == 401
                 assert err.value.content == {'code': 'invalid_claims',
                                             'description': 'Missing claims, please check the audience.'}
