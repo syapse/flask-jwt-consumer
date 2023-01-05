@@ -25,7 +25,7 @@ class _Config(object):
     @property
     def use_cookie(self):
         return current_app.config['JWT_USE_COOKIE']
-    
+
     @property
     def cookie_name(self):
         use_cookie = current_app.config['JWT_USE_COOKIE']
