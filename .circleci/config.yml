@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  common: syapse/common@1.4.0
+  common: syapse/common@1.19.2
 
 defaults: &defaults
   docker:
