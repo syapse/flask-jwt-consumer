@@ -1,5 +1,6 @@
 import jwt
-from flask import _request_ctx_stack, request
+from flask.globals import request_ctx
+from flask import request
 
 from .config import config
 from .errors import AuthError
@@ -78,4 +79,4 @@ def get_jwt_payload():
 
     If no JWT is currently present, and empty dict is returned
     """
-    return getattr(_request_ctx_stack.top, 'jwt_payload', {})
+    return getattr(request_ctx, 'jwt_payload', {})
