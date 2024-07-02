@@ -1,5 +1,5 @@
 import jwt
-from flask import _request_ctx_stack, current_app, request
+from flask.globals import request_ctx
 
 from functools import wraps
 
@@ -58,7 +58,7 @@ def requires_jwt(f, **kwparams):
                                 'description': 'Unable to parse authentication token.'},
                                 401)
 
-            _request_ctx_stack.top.jwt_payload = payload
+            request_ctx.jwt_payload = payload
             more = {}
             if kwparams.get('pass_token_payload', False):
                 more.update({'token_payload': payload})
